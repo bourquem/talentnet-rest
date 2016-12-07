@@ -1,0 +1,73 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="products")
+ */
+
+    class Product
+    {
+
+        /**
+         * @ORM\Column(type="integer")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="AUTO")
+         */
+	private $id;
+
+	/**
+	 * @ORM\Column(type="string", length=64)
+	 */
+        private $name;
+
+	/**
+	 * @ORM\Column(type="string", length=32)
+	 */
+	private $category;
+	
+	/**
+	 * @ORM\Column(type="string", length=5)
+	 */
+	private $sku;
+
+	/**
+	 * @ORM\Column(type="decimal", scale=2)
+	 */
+	private $price;
+
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $quantity;
+
+        /**
+         * @ORM\Column(type="datetime")
+         */
+        private $created_at;
+
+        /**
+         * @ORM\Column(type="datetime")
+         */
+        private $modified_at;
+
+        /**
+         * Use doctrine callback on persist or update to call updateTimestamps() function
+         * 
+         * @ORM\PrePersist
+         * @ORM\PreUpdate
+         */
+        public function updateTimestamps()
+        {
+            $this->setModifiedAt(new \DateTime(date('Y-m-d H:i:s')));
+	    
+ 	    if ($this->getCreatedAt() == null)
+	    {
+	        $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+	    }
+	}	     
+    } // end class
