@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 #use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 #use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,4 +23,9 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data, Response::HTTP_OK);
 		return $view;
 	}
+
+        public function createAction()
+	{
+	    $product = new Product();
+	    $product->setName(
 }
